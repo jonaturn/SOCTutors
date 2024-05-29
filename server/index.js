@@ -66,7 +66,7 @@ mongoose.connect(process.env.MONGO_URL,
         app.listen(PORT, () => console.log(`Server Port: ${PORT}`));
 
         //ADD FAKE DATA ONLY RUN ONCE SO NO DUPLICATES
-        User.insertMany(users);
-        Post.insertMany(posts);
+        //User.insertMany(users);
+        //Post.insertMany(posts);
     })
     .catch((error) => console.log(`${error} did not connect`));
