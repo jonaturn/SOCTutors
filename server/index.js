@@ -8,6 +8,15 @@ import helmet from 'helmet';
 import morgan from 'morgan';
 import path from 'path'; //from node
 import { fileURLToPath } from 'url';
+import authRoutes from "./routes/auth.js"; //path and routes for auth features
+import userRoutes from "./routes/users.js"; //path and routes for user features
+import postRoutes from "./routes/posts.js"; //path and routes for post features
+import { register } from 'module';
+import { verifyToken } from './middleware/auth.js';
+import { createPost } from './controllers/posts.js';
+import User from "./models/User.js";
+import Post from "./models/Post.js";
+import { users, posts } from "./data/index.js";
 
 /* CONFIGURATIONS */
 const __filename = fileURLToPath(import.meta.url); //so we can grab file url for modules
@@ -36,6 +45,16 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage });
 
+/* ROUTES WITH FILES */
+app.post("/auth/register", upload.single("picture"), register); 
+app.post("/posts", verifyToken, upload.single("picture"), createPost);
+// we cannot remove this into a seperate file because we need to upload this to db
+
+app.use("/auth", authRoutes);
+app.use("/users", userRoutes);
+app.use("/posts", postRoutes);
+
+
 /* MONGOOSE SETUP */
 const PORT = process.env.PORT || 6001;
 mongoose.connect(process.env.MONGO_URL, 
@@ -45,5 +64,9 @@ mongoose.connect(process.env.MONGO_URL,
     })
     .then(() => {
         app.listen(PORT, () => console.log(`Server Port: ${PORT}`));
+
+        //ADD FAKE DATA ONLY RUN ONCE SO NO DUPLICATES
+        User.insertMany(users);
+        Post.insertMany(posts);
     })
     .catch((error) => console.log(`${error} did not connect`));
