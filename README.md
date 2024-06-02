@@ -3,6 +3,7 @@
 Welcome to our NUS Orbital 2024 Apollo project!
 
 **Motivation**:
+
 SocTutors is a cutting-edge tutoring app designed to bridge the gap between
 National University of Singapore (NUS) Computer Science (CS) students and
 aspiring CS enthusiasts preparing for their undergraduate journey. Whether you're a
@@ -12,6 +13,7 @@ perfect platform for seamless knowledge exchange and academic support.
 Our motivation is deeply rooted in the belief that education should be accessible,
 inclusive, and transformative. Here's why we've dedicated ourselves to creating this
 app:
+
 Empowering Aspiring Minds: We understand the challenges that aspiring CS
 students face in navigating the complex world of computer science. By connecting
 them with experienced NUS CS students, we empower them to overcome obstacles,
@@ -25,6 +27,7 @@ building connections and fostering a sense of belonging. CS Tutor Connect cultiv
 a vibrant learning community within the NUS CS ecosystem, where students can
 collaborate, share ideas, and support each other in their pursuit of academic
 excellence.
+
 Promoting Academic Excellence: We believe in setting high standards for academic
 achievement and supporting students in reaching their goals. By providing access to
 top-notch tutoring services and resources, CS Tutor Connect promotes academic
@@ -33,10 +36,12 @@ Driving Innovation: Computer science is at the forefront of innovation and
 technological advancement. By nurturing the next generation of CS talent, CS Tutor
 Connect plays a crucial role in driving innovation, solving complex problems, and
 shaping the future of technology.
+
 Democratising Education: Education should not be limited by geography,
 socioeconomic status, or any other barriers. CS Tutor Connect democratises access
 to high-quality CS education by providing a platform where students from all
 backgrounds can learn, grow, and thrive.
+
 Inspiring the Next Generation: We are passionate about inspiring and empowering
 the next generation of CS leaders, innovators, and changemakers. CS Tutor
 Connect aims to ignite a spark of curiosity, creativity, and ambition in every student
