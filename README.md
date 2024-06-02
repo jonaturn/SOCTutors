@@ -3,7 +3,6 @@
 Welcome to our NUS Orbital 2024 Apollo project!
 
 **Motivation**:
-
 SocTutors is a cutting-edge tutoring app designed to bridge the gap between
 National University of Singapore (NUS) Computer Science (CS) students and
 aspiring CS enthusiasts preparing for their undergraduate journey. Whether you're a
