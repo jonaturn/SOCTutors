@@ -49,7 +49,7 @@ we reach, fueling their passion for learning and discovery
 
 For intiatlisation use these commands in terminal:
 
-- "npm i -g nodemon"
-- "npm i express body-parser bcrypt cors dotenv gridfs-stream multer multer-gridfs-storage helmet morgan jsonwebtoken mongoose"
-- "npm i multer@latest"
-- "npm init -y"
+-npm install all
+
+To run frontend: cd into the client directory and run "npm run dev"
+To run backend: cd into the server directory and run "npx nodemon"
