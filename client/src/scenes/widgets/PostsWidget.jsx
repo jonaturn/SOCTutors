@@ -9,7 +9,7 @@
     const token = useSelector((state) => state.token);
   
     const getPosts = async () => {
-      const response = await fetch("http://localhost:3001/posts", {
+      const response = await fetch("https://soctutors.onrender.com/posts", {
         method: "GET",
         headers: { Authorization: `Bearer ${token}` },
       });
@@ -19,7 +19,7 @@
   
     const getUserPosts = async () => {
       const response = await fetch(
-        `http://localhost:3001/posts/${userId}/posts`,
+        `https://soctutors.onrender.com/posts/${userId}/posts`,
         {
           method: "GET",
           headers: { Authorization: `Bearer ${token}` },
