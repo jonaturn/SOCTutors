@@ -162,12 +162,13 @@ const PostWidget = ({
                 style={{
                   width: "100%",
                   backgroundColor: palette.neutral.light,
+                  color: palette.text.primary, // Use theme text color
                   borderRadius: "2rem",
                   padding: "1rem",
                   resize: "none",
                   border: "none",
                   fontSize: "0.875rem",
-                  fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
+                  fontFamily: '"Rubik", "sans-serif"',
                   outline: "none",
                   boxShadow: "none",
                 }}
