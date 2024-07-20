@@ -101,7 +101,7 @@ import {
               <Box key={`${name}-${i}`}>
                 <Divider />
                 <Typography sx={{ color: main, m: "0.5rem 0", pl: "1rem" }}>
-                  {comment}
+                  {comment.comment}
                 </Typography>
               </Box>
             ))}

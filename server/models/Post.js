@@ -26,6 +26,20 @@ const postSchema = new mongoose.Schema(
             type: Array,
             default: []
         },
+        comments: [{
+            userId: {
+                type: String,
+                required: true
+            },
+            comment: {
+                type: String,
+                required: true
+            },
+            timestamp: {
+                type: Date,
+                default: Date.now
+            }
+        }],
         answered: Boolean,
         solution: String
     },
