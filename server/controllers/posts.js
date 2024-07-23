@@ -97,3 +97,42 @@ export const commentPost = async (req, res) => {
         res.status(404).json({ message: error.message });
     }
 }
+
+export const solutionPost = async (req, res) => {
+    try {
+        const { id } = req.params;  // Extract post ID from the request parameters
+        const { commentId } = req.body;  // Extract comment ID from the request body
+
+        // Find the post by its ID
+        const post = await Post.findById(id);
+        if (!post) {
+            return res.status(404).json({ message: "Post not found" });
+        }
+
+        // Find the comment by ID within the post
+        const comment = post.comments.id(commentId);
+        if (!comment) {
+            return res.status(404).json({ message: "Comment not found" });
+        }
+
+        // Set the post as answered and the comment as chosen
+        post.answered = true;
+        post.solution = commentId;
+
+        // Unmark any previously chosen comment and mark the selected one as chosen
+        post.comments.forEach((comm) => {
+            if (comm._id.toString() === commentId) {
+                comm.chosen = true;
+            } else {
+                comm.chosen = false;
+            }
+        });
+
+        // Save the updated post
+        const updatedPost = await post.save();
+
+        res.status(200).json(updatedPost);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+}

@@ -22,10 +22,6 @@ const postSchema = new mongoose.Schema(
             type: Map,
             of: Boolean
         },
-        comments: {
-            type: Array,
-            default: []
-        },
         comments: [{
             userId: {
                 type: String,
@@ -35,12 +31,19 @@ const postSchema = new mongoose.Schema(
                 type: String,
                 required: true
             },
+            chosen: {
+                type: Boolean,
+                default: false
+            },
             timestamp: {
                 type: Date,
                 default: Date.now
             }
         }],
-        answered: Boolean,
+        answered: {
+            type: Boolean,
+            default: false
+        },
         solution: String
     },
     { timestamps: true }
