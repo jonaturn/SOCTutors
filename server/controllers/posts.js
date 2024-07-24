@@ -128,6 +128,13 @@ export const solutionPost = async (req, res) => {
             }
         });
 
+        // Increment the level of the user whose comment was marked as the solution
+        const commentUser = await User.findById(comment.userId);
+        if (commentUser) {
+            commentUser.level += 1;
+            await commentUser.save();
+        }
+
         // Save the updated post
         const updatedPost = await post.save();
 

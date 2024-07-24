@@ -38,6 +38,10 @@ const UserSchema = new mongoose.Schema(
             default: []
         },
         occupation: String,
+        level: {
+            type: Number,
+            default: 0
+        }
     }, {timestamps: true}
 );
 

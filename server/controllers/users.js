@@ -30,6 +30,20 @@ export const getUserFriends = async (req, res) => {
   }
 };
 
+export const getTopUsers = async (req, res) => {
+  try {
+    // Fetch the top 3 users based on the level
+    const topUsers = await User.find({})
+      .sort({ level: -1 }) // Sort by level in descending order
+      .limit(3) // Limit to top 3 users
+      .select("_id firstName lastName level userPicturePath"); // Select only required fields
+
+    res.status(200).json(topUsers);
+  } catch (err) {
+    res.status(404).json({ message: err.message });
+  }
+};
+
 /* UPDATE */
 export const addRemoveFriend = async (req, res) => {
   try {
