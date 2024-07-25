@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { BrowserRouter, Navigate, Routes, Route } from 'react-router-dom';
 import HomePage from "./scenes/homePage";
 import LoginPage from "./scenes/loginPage";
 import ProfilePage from "./scenes/profilePage";
-import { useMemo } from "react";
+import ChatPage from "./scenes/chatPage"; // Import ChatPage here
 import { useSelector } from "react-redux";
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import { createTheme } from "@mui/material/styles";
@@ -13,6 +13,7 @@ export const App = () => {
   const mode = useSelector((state) => state.mode);
   const theme = useMemo(() => createTheme(themeSettings(mode)), [mode]);
   const isAuth = Boolean(useSelector((state) => state.token));
+
   return (
     <div className="app">
       <BrowserRouter>
@@ -27,6 +28,10 @@ export const App = () => {
             <Route
               path="/profile/:userId"
               element={isAuth ? <ProfilePage /> : <Navigate to="/" />}
+            />
+            <Route
+              path="/chat"
+              element={isAuth ? <ChatPage /> : <Navigate to="/" />}
             />
           </Routes>
         </ThemeProvider>

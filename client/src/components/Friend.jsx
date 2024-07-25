@@ -21,19 +21,54 @@ const Friend = ({ friendId, name, subtitle, userPicturePath }) => {
 
   const isFriend = friends.find((friend) => friend._id === friendId);
 
-  const patchFriend = async () => {
-    const response = await fetch(
-      `http://localhost:3001/users/${_id}/${friendId}`,
-      {
-        method: "PATCH",
+  const createChat = async (friendId) => {
+    try {
+      const response = await fetch(`http://localhost:3001/chats`, {
+        method: "POST",
         headers: {
-          Authorization: `Bearer ${token}`,
           "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
         },
-      }
-    );
-    const data = await response.json();
-    dispatch(setFriends({ connections: data }));
+        body: JSON.stringify({
+          userId: friendId,
+          initiatingUserId: _id,
+        }),
+      });
+  
+      const newChat = await response.json();
+      return newChat; // Return newChat to use in fetching messages
+
+    } catch (error) {
+      console.error("Error creating chat:", error);
+    }
+  };
+
+  const patchFriend = async () => {
+    try {
+      const response = await fetch(
+        `http://localhost:3001/users/${_id}/${friendId}`,
+        {
+          method: "PATCH",
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      const data = await response.json();
+      dispatch(setFriends({ connections: data }));
+
+    } catch (error) {
+      console.error("Error adding friend:", error);
+    }
+  };
+
+  const handleIconClick = async () => {
+    try {
+      await Promise.all([patchFriend(), createChat(friendId)]);
+    } catch (error) {
+      console.error("Error handling icon click:", error);
+    }
   };
 
   return (
@@ -66,7 +101,7 @@ const Friend = ({ friendId, name, subtitle, userPicturePath }) => {
       </FlexBetween>
       {_id !== friendId && 
         (<IconButton
-          onClick={() => patchFriend()}
+          onClick={() =>  handleIconClick()}
           sx={{ backgroundColor: primaryLight, p: "0.6rem" }}
         >
           {isFriend ? (
