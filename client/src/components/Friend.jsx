@@ -23,7 +23,7 @@ const Friend = ({ friendId, name, subtitle, userPicturePath }) => {
 
   const createChat = async (friendId) => {
     try {
-      const response = await fetch(`http://localhost:3001/chats`, {
+      const response = await fetch(`https://soctutors.onrender.com/chats`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
