@@ -1,4 +1,4 @@
-import { Box, Typography, Button, TextField, List, ListItem, ListItemText, Divider, Paper } from "@mui/material";
+import { Box, Typography, Button, TextField, List, ListItem, ListItemText, Paper } from "@mui/material";
 import Navbar from "scenes/navbar";
 import React, { useState, useEffect } from "react";
 import io from "socket.io-client";
@@ -135,7 +135,6 @@ const ChatPage = () => {
 
   const createChat = async (friendId) => {
     try {
-
       const response = await fetch(`${ENDPOINT}/chats`, {
         method: "POST",
         headers: {
@@ -161,10 +160,10 @@ const ChatPage = () => {
   const isDarkMode = theme.palette.mode === "dark";
 
   return (
-    <Box>
+    <Box sx={{ height: "100vh", display: "flex", flexDirection: "column" }}>
       <Navbar />
-      <div style={{ display: "flex", height: "100vh" }}>
-        <Paper elevation={3} style={{ width: "30%", padding: "10px", overflowY: "auto" }}>
+      <Box sx={{ display: "flex", flex: 1, overflow: "hidden" }}>
+        <Paper elevation={3} sx={{ width: "30%", padding: "10px", overflowY: "auto" }}>
           <Typography variant="h6">Chats</Typography>
           <List>
             {chats.map((chat) => (
@@ -183,14 +182,14 @@ const ChatPage = () => {
             ))}
           </List>
         </Paper>
-        <div style={{ width: "70%", display: "flex", flexDirection: "column" }}>
+        <Box sx={{ width: "70%", display: "flex", flexDirection: "column" }}>
           {selectedChat ? (
-            <div style={{ flex: 1, display: "flex", flexDirection: "column" }}>
-              <Typography variant="h6" style={{ padding: "10px", borderBottom: "1px solid #ccc" }}>
+            <Box sx={{ flex: 1, display: "flex", flexDirection: "column", overflow: "hidden" }}>
+              <Typography variant="h6" sx={{ padding: "10px", borderBottom: "1px solid #ccc" }}>
                 {`Chat with ${selectedChat.users?.find((u) => u._id !== user._id)?.firstName || 'Unknown User'}`}
               </Typography>
-              <div
-                style={{
+              <Box
+                sx={{
                   flex: 1,
                   padding: "10px",
                   overflowY: "auto",
@@ -198,9 +197,9 @@ const ChatPage = () => {
                 }}
               >
                 {messages.map((message) => (
-                  <div
+                  <Box
                     key={message._id}
-                    style={{
+                    sx={{
                       marginBottom: "10px",
                       backgroundColor: message.sender._id === user._id
                         ? isDarkMode ? "#004d40" : "#e0f7fa"
@@ -208,15 +207,17 @@ const ChatPage = () => {
                       padding: "10px",
                       borderRadius: "5px",
                       color: isDarkMode && message.sender._id !== user._id ? "#e0e0e0" : "inherit",
+                      wordWrap: "break-word",  // Ensure long words break within the box
+                      wordBreak: "break-all",  // Ensure long words break within the box
                     }}
                   >
                     <Typography variant="body1">
                       <strong>{message.sender.firstName} {message.sender.lastName}:</strong> {message.content}
                     </Typography>
-                  </div>
+                  </Box>
                 ))}
-              </div>
-              <div style={{ padding: "10px", borderTop: "1px solid #ccc", display: "flex", alignItems: "center" }}>
+              </Box>
+              <Box sx={{ padding: "10px", borderTop: "1px solid #ccc", display: "flex", alignItems: "center" }}>
                 <TextField
                   fullWidth
                   variant="outlined"
@@ -229,7 +230,7 @@ const ChatPage = () => {
                       sendMessage(newMessage); // Pass the content to sendMessage
                     }
                   }}
-                  style={{ marginRight: "10px" }}
+                  sx={{ marginRight: "10px" }}
                 />
                 <Button
                   variant="contained"
@@ -238,15 +239,15 @@ const ChatPage = () => {
                 >
                   Send
                 </Button>
-              </div>
-            </div>
+              </Box>
+            </Box>
           ) : (
-            <div style={{ flex: 1, display: "flex", alignItems: "center", justifyContent: "center" }}>
+            <Box sx={{ flex: 1, display: "flex", alignItems: "center", justifyContent: "center" }}>
               <Typography variant="h6">Select a chat to start messaging</Typography>
-            </div>
+            </Box>
           )}
-        </div>
-      </div>
+        </Box>
+      </Box>
     </Box>
   );
 };
