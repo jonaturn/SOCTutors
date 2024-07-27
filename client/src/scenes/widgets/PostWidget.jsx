@@ -77,7 +77,7 @@ const PostWidget = ({
   };
 
   const handleMarkSolution = async (commentId) => {
-    const response = await fetch(`http://localhost:3001/posts/${postId}/solution`, {
+    const response = await fetch(`https://soctutors.onrender.com/posts/${postId}/solution`, {
       method: "PATCH",
       headers: {
         Authorization: `Bearer ${token}`,
@@ -96,7 +96,7 @@ const PostWidget = ({
     const fetchCommentUserDetails = async () => {
       const userDetails = await Promise.all(
         comments.map(async (comment) => {
-          const response = await fetch(`http://localhost:3001/users/${comment.userId}`, {
+          const response = await fetch(`https://soctutors.onrender.com/users/${comment.userId}`, {
             method: "GET",
             headers: {
               Authorization: `Bearer ${token}`,
@@ -117,7 +117,7 @@ const PostWidget = ({
       if (solution) {
         const comment = comments.find((c) => c._id === solution);
         if (comment) {
-          const response = await fetch(`http://localhost:3001/users/${comment.userId}`, {
+          const response = await fetch(`https://soctutors.onrender.com/users/${comment.userId}`, {
             method: "GET",
             headers: {
               Authorization: `Bearer ${token}`,
@@ -161,7 +161,7 @@ const PostWidget = ({
           height="auto"
           alt="post"
           style={{ borderRadius: "0.75rem", marginTop: "0.75rem" }}
-          src={`http://localhost:3001/assets/${picturePath}`}
+          src={`https://soctutors.onrender.com/assets/${picturePath}`}
         />
       )}
       {answered ? (
@@ -171,7 +171,7 @@ const PostWidget = ({
               Answered by
             </Typography>
             <Avatar
-              src={`http://localhost:3001/assets/${solutionUserDetails.userPicturePath}`}
+              src={`https://soctutors.onrender.com/assets/${solutionUserDetails.userPicturePath}`}
               alt={solutionUserDetails.userName}
               sx={{ width: 24, height: 24 }}
             />
@@ -282,7 +282,7 @@ const PostWidget = ({
                 )}
                 <Box display="flex" alignItems="flex-start">
                   <Avatar
-                    src={`http://localhost:3001/assets/${comment.userPicturePath}`}
+                    src={`https://soctutors.onrender.com/assets/${comment.userPicturePath}`}
                     alt={comment.userName}
                     sx={{ width: 24, height: 24, mr: "0.5rem" }}
                   />
