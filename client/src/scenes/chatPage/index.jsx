@@ -5,7 +5,7 @@ import io from "socket.io-client";
 import { useSelector } from "react-redux";
 import { useTheme } from "@mui/material/styles";
 
-const ENDPOINT = "http://localhost:3001";
+const ENDPOINT = "https://soctutors.onrender.com";
 let socket;
 
 const ChatPage = () => {
