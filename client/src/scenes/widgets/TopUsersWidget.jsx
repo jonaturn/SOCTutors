@@ -17,7 +17,7 @@ const TopUsersWidget = () => {
   const main = palette.neutral.main;
 
   const getTopUsers = async () => {
-    const response = await fetch(`http://localhost:3001/users/top3`, {
+    const response = await fetch(`https://soctutors.onrender.com/users/top3`, {
       method: "GET",
       headers: { Authorization: `Bearer ${token}` },
     });

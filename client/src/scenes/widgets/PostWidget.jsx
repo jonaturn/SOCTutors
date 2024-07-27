@@ -44,7 +44,7 @@ const PostWidget = ({
   const inputBackgroundColor = palette.neutral.light; // Background color for the input comment
 
   const patchLike = async () => {
-    const response = await fetch(`http://localhost:3001/posts/${postId}/like`, {
+    const response = await fetch(`https://soctutors.onrender.com/posts/${postId}/like`, {
       method: "PATCH",
       headers: {
         Authorization: `Bearer ${token}`,
@@ -60,7 +60,7 @@ const PostWidget = ({
     e.preventDefault();
     if (!newComment.trim()) return;
 
-    const response = await fetch(`http://localhost:3001/posts/${postId}/comment`, {
+    const response = await fetch(`https://soctutors.onrender.com/posts/${postId}/comment`, {
       method: "PATCH",
       headers: {
         Authorization: `Bearer ${token}`,
