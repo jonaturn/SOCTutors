@@ -21,7 +21,6 @@ const registerSchema = yup.object().shape({
   lastName: yup.string().required("required"),
   email: yup.string().email("invalid email").required("required"),
   password: yup.string().required("required"),
-  //location: yup.string().required("required"),
   occupation: yup.string().required("required"),
   picture: yup.string().required("required"),
 });
@@ -36,7 +35,6 @@ const initialValuesRegister = {
   lastName: "",
   email: "",
   password: "",
-  //location: "",
   occupation: "",
   picture: "",
 };
@@ -135,9 +133,7 @@ const Form = () => {
                   onChange={handleChange}
                   value={values.firstName}
                   name="firstName"
-                  error={
-                    Boolean(touched.firstName) && Boolean(errors.firstName)
-                  }
+                  error={Boolean(touched.firstName) && Boolean(errors.firstName)}
                   helperText={touched.firstName && errors.firstName}
                   sx={{ gridColumn: "span 2" }}
                 />
@@ -151,25 +147,13 @@ const Form = () => {
                   helperText={touched.lastName && errors.lastName}
                   sx={{ gridColumn: "span 2" }}
                 />
-                {/*<TextField
-                  label="Location"
-                  onBlur={handleBlur}
-                  onChange={handleChange}
-                  value={values.location}
-                  name="location"
-                  error={Boolean(touched.location) && Boolean(errors.location)}
-                  helperText={touched.location && errors.location}
-                  sx={{ gridColumn: "span 4" }}
-                />*/}
                 <TextField
                   label="Occupation"
                   onBlur={handleBlur}
                   onChange={handleChange}
                   value={values.occupation}
                   name="occupation"
-                  error={
-                    Boolean(touched.occupation) && Boolean(errors.occupation)
-                  }
+                  error={Boolean(touched.occupation) && Boolean(errors.occupation)}
                   helperText={touched.occupation && errors.occupation}
                   sx={{ gridColumn: "span 4" }}
                 />
@@ -195,16 +179,25 @@ const Form = () => {
                       >
                         <input {...getInputProps()} />
                         {!values.picture ? (
-                          <p>Add Picture Here</p>
+                          <Typography color={Boolean(errors.picture) && touched.picture ? 'error' : 'textPrimary'}>
+                            Add Picture Here
+                          </Typography>
                         ) : (
                           <FlexBetween>
-                            <Typography>{values.picture.name}</Typography>
+                            <Typography color={Boolean(errors.picture) && touched.picture ? 'error' : 'textPrimary'}>
+                              {values.picture.name}
+                            </Typography>
                             <EditOutlinedIcon />
                           </FlexBetween>
                         )}
                       </Box>
                     )}
                   </Dropzone>
+                  {Boolean(touched.picture) && Boolean(errors.picture) && (
+                    <Typography color="error" variant="caption">
+                      {errors.picture}
+                    </Typography>
+                  )}
                 </Box>
               </>
             )}
