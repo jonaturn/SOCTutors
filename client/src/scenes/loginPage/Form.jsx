@@ -178,6 +178,7 @@ const Form = () => {
                   border={`1px solid ${palette.neutral.medium}`}
                   borderRadius="5px"
                   p="1rem"
+                  value={values.picture}
                   error={Boolean(touched.picture) && Boolean(errors.picture)}
                   helperText={touched.picture && errors.picture}
                 >
