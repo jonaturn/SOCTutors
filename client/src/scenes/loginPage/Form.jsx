@@ -8,7 +8,7 @@ import {
   useTheme,
 } from "@mui/material";
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
-import { Formik } from "formik";
+import { Formik, Field } from "formik";
 import * as yup from "yup";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
@@ -16,14 +16,14 @@ import { setLogin } from "state";
 import Dropzone from "react-dropzone";
 import FlexBetween from "components/FlexBetween";
 
+// Validation schemas
 const registerSchema = yup.object().shape({
   firstName: yup.string().required("required"),
   lastName: yup.string().required("required"),
   email: yup.string().email("invalid email").required("required"),
   password: yup.string().required("required"),
-  //location: yup.string().required("required"),
   occupation: yup.string().required("required"),
-  picture: yup.string().required("required"),
+  picture: yup.mixed().required("required"),
 });
 
 const loginSchema = yup.object().shape({
@@ -36,9 +36,8 @@ const initialValuesRegister = {
   lastName: "",
   email: "",
   password: "",
-  //location: "",
   occupation: "",
-  picture: "",
+  picture: null,
 };
 
 const initialValuesLogin = {
@@ -56,7 +55,7 @@ const Form = () => {
   const isRegister = pageType === "register";
 
   const register = async (values, onSubmitProps) => {
-    // this allows us to send form info with image
+    // Send form info with image
     const formData = new FormData();
     for (let value in values) {
       formData.append(value, values[value]);
@@ -116,9 +115,20 @@ const Form = () => {
         handleChange,
         handleSubmit,
         setFieldValue,
+        setTouched,
         resetForm,
       }) => (
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={(e) => {
+          handleSubmit(e);
+          setTouched({
+            firstName: true,
+            lastName: true,
+            email: true,
+            password: true,
+            occupation: true,
+            picture: true,
+          });
+        }}>
           <Box
             display="grid"
             gap="30px"
@@ -131,13 +141,11 @@ const Form = () => {
               <>
                 <TextField
                   label="First Name"
-                  onBlur={handleBlur} 
+                  onBlur={handleBlur}
                   onChange={handleChange}
                   value={values.firstName}
                   name="firstName"
-                  error={
-                    Boolean(touched.firstName) && Boolean(errors.firstName)
-                  }
+                  error={Boolean(touched.firstName) && Boolean(errors.firstName)}
                   helperText={touched.firstName && errors.firstName}
                   sx={{ gridColumn: "span 2" }}
                 />
@@ -151,25 +159,13 @@ const Form = () => {
                   helperText={touched.lastName && errors.lastName}
                   sx={{ gridColumn: "span 2" }}
                 />
-                {/*<TextField
-                  label="Location"
-                  onBlur={handleBlur}
-                  onChange={handleChange}
-                  value={values.location}
-                  name="location"
-                  error={Boolean(touched.location) && Boolean(errors.location)}
-                  helperText={touched.location && errors.location}
-                  sx={{ gridColumn: "span 4" }}
-                />*/}
                 <TextField
                   label="Occupation"
                   onBlur={handleBlur}
                   onChange={handleChange}
                   value={values.occupation}
                   name="occupation"
-                  error={
-                    Boolean(touched.occupation) && Boolean(errors.occupation)
-                  }
+                  error={Boolean(touched.occupation) && Boolean(errors.occupation)}
                   helperText={touched.occupation && errors.occupation}
                   sx={{ gridColumn: "span 4" }}
                 />
@@ -178,9 +174,6 @@ const Form = () => {
                   border={`1px solid ${palette.neutral.medium}`}
                   borderRadius="5px"
                   p="1rem"
-                  value={values.picture}
-                  error={Boolean(touched.picture) && Boolean(errors.picture)}
-                  helperText={touched.picture && errors.picture}
                 >
                   <Dropzone
                     acceptedFiles=".jpg,.jpeg,.png"
@@ -208,6 +201,11 @@ const Form = () => {
                       </Box>
                     )}
                   </Dropzone>
+                  {Boolean(touched.picture) && Boolean(errors.picture) && (
+                    <Typography color="error" variant="caption">
+                      {errors.picture}
+                    </Typography>
+                  )}
                 </Box>
               </>
             )}
