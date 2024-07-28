@@ -8,7 +8,7 @@ import {
   useTheme,
 } from "@mui/material";
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
-import { Formik } from "formik";
+import { Formik, Field } from "formik";
 import * as yup from "yup";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
@@ -16,13 +16,14 @@ import { setLogin } from "state";
 import Dropzone from "react-dropzone";
 import FlexBetween from "components/FlexBetween";
 
+// Validation schemas
 const registerSchema = yup.object().shape({
   firstName: yup.string().required("required"),
   lastName: yup.string().required("required"),
   email: yup.string().email("invalid email").required("required"),
   password: yup.string().required("required"),
   occupation: yup.string().required("required"),
-  picture: yup.string().required("required"),
+  picture: yup.mixed().required("required"),
 });
 
 const loginSchema = yup.object().shape({
@@ -36,7 +37,7 @@ const initialValuesRegister = {
   email: "",
   password: "",
   occupation: "",
-  picture: "",
+  picture: null,
 };
 
 const initialValuesLogin = {
@@ -54,7 +55,7 @@ const Form = () => {
   const isRegister = pageType === "register";
 
   const register = async (values, onSubmitProps) => {
-    // this allows us to send form info with image
+    // Send form info with image
     const formData = new FormData();
     for (let value in values) {
       formData.append(value, values[value]);
@@ -114,9 +115,20 @@ const Form = () => {
         handleChange,
         handleSubmit,
         setFieldValue,
+        setTouched,
         resetForm,
       }) => (
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={(e) => {
+          handleSubmit(e);
+          setTouched({
+            firstName: true,
+            lastName: true,
+            email: true,
+            password: true,
+            occupation: true,
+            picture: true,
+          });
+        }}>
           <Box
             display="grid"
             gap="30px"
@@ -129,7 +141,7 @@ const Form = () => {
               <>
                 <TextField
                   label="First Name"
-                  onBlur={handleBlur} 
+                  onBlur={handleBlur}
                   onChange={handleChange}
                   value={values.firstName}
                   name="firstName"
@@ -179,14 +191,10 @@ const Form = () => {
                       >
                         <input {...getInputProps()} />
                         {!values.picture ? (
-                          <Typography color={Boolean(errors.picture) && touched.picture ? 'error' : 'textPrimary'}>
-                            Add Picture Here
-                          </Typography>
+                          <p>Add Picture Here</p>
                         ) : (
                           <FlexBetween>
-                            <Typography color={Boolean(errors.picture) && touched.picture ? 'error' : 'textPrimary'}>
-                              {values.picture.name}
-                            </Typography>
+                            <Typography>{values.picture.name}</Typography>
                             <EditOutlinedIcon />
                           </FlexBetween>
                         )}
